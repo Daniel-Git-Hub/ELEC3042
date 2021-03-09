@@ -7,7 +7,11 @@ A lower case "x" refers to that this is the same register accross all three time
 
 Each timer also has two ports associated with it and for each port there is a compare register which is the same size of the counter (8 bit for timer 0 and 2 and 16 bit for timer 1)
 
-Table of ports
+| Timer | OC0A Arduino Pin | OC0B Arduino Pin |
+| --- | --- | --- |
+| Timer 0 | 6 | 5 |
+| Timer 1 | 9 | 10 |
+| Timer 2 | 11 | 3 |
 
 
 ## Part 1) Frequency of Count
