@@ -138,4 +138,19 @@ Similar to Fast PWM except instead of reseting the count back to 0 when it reach
 
 ## Part 4) Interrupts and Flags
 
+_For greater detail in interrupts see: https://github.com/Daniel-Git-Hub/ELEC3042/tree/main/Interupt_
 
+Each timer has three interrupts and three flags associated with them. One for when the counter matches OCRxA, one for when the counter matches OCRxB and one for when the counter overflows, that is when it reaches its max value (2^8-1 for 8 bit and 2^16-1 for 16 bit) and resets back to 0.
+
+If the interrupt is enabled then the flag dosen't need to be touched as it resets automatically.
+
+But these flags can also be manually queryied (read) to find out if the timer has matched/overflowed
+The strangness with these bits is to clear them you have to set them, for example say that are TIFR0 (Timer Interrupt Flag Register 0) has a value of 0b00000100, that is to say that OCR0B has matched.
+To clear this bit we run
+`
+TIFR0 |= 0b00000100;
+`
+_Note that thius is the case for most (maybe) all interrupt flags_
+
+For example here is the code that contains a delay that queries the interrupt flag manually, instead of using an interrupt
+https://github.com/Daniel-Git-Hub/ELEC3042/blob/main/Timer/DelayExample.c
