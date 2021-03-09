@@ -82,7 +82,7 @@ But for some of our applications such as a SPEAKER it will generate the sound co
 
 The speakers will generate a tone dictated to the frequency that it is turned on f = 16Mhz/(2*N*(OCRxA+1))
 
-Code for the next two examples: 
+Code for the next two examples: https://github.com/Daniel-Git-Hub/ELEC3042/blob/main/Timer/CTCExample.c
 
 Example say we want to play a tone at 440 Hz using a prescaler of 256 on timer 2 then
 
@@ -117,7 +117,7 @@ With different Fast PWM Modes have different tops, for example timer 0's Fast PW
 
 When it reaches this value it resets back to 0 and starts counting again.
 
-Code for this example
+Code for this example: https://github.com/Daniel-Git-Hub/ELEC3042/blob/main/Timer/PWMExample.c
 
 Example turn on an LED for 70% of the time. We will use timer 0 and OCA (Arduino pin 6) with a prescaler of 64.
 
