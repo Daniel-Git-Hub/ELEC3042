@@ -1,4 +1,4 @@
-Timers, Counting, Frequency, Flags and Output.
+# Timers, Counting, Frequency, Flags and Output.
 
 All a timer is a register (read variable) that counts up and then resets back to 0 once it meets a criteria.
 The ATMEGA328p has three timers Timer 0 and 2 are 8 bit and Timer 1 is 16 bit. This means that the 8 bit timers can count from 0-255 and the 16 bit timer from 0-65535
@@ -10,7 +10,7 @@ Each timer also has two ports associated with it and for each port there is a co
 Table of ports
 
 
-Part 1) Frequency of Count
+## Part 1) Frequency of Count
 
 Firstly I'll be refering to various Clock Select Modes.
 To set this mode for a timer you need to to set the corresponding bits in the B Control Register (TCCRxB) where the 3 most insighnificant bits represent the Clock Select. The table for these modes can be found on page 117 for timer 0, page 143 for timer 1 and page 166 for timer 2
@@ -36,7 +36,7 @@ Or to conenct it to sensor and only do something every X readings
 Important take away is that the timers counter increases once every N/16,000,000 seconds (where N is the prescaler)
 
 
-Part 2) Pin modes
+## Part 2) Pin modes
 
 Using the Timer Control Register A you can set modes for what happens to the physical pin. Most of the details can be seen on pages 113-114 for Timer 0, pages 140-141 for Timer 1 and pages 162-163 for Timer 2
 The important thing to note is that these registers do different things depending on mode (see Part 3).
@@ -50,18 +50,18 @@ TOGGLE refers to changing the state, turning it on if it is off and turing the p
 Note the corresponding pin needs to be set as an output using DDRx (Data direction register) (see chapter 14 in the Data sheet) for it to be used in this fashion
 
 
-Part 3) Waveform Modes
-A) How to set the modes
+## Part 3) Waveform Modes
+### A) How to set the modes
 These modes are detailed in the tables located at the end of each of the timer chapters in the datasheet.
 The complicating factor is that the bits decribing the modes (WGMx, Waveform Generation Mode) is split across BOTH the TCCRxA and TCCRxB registers   
 
 
-B) Normal Mode
+### B) Normal Mode
 This is quite similar to fast PWM, just without the extra pin modes.
 It counts up until it hits the overflow (either 0xff for 8 bit or 0xffff for the 16 bit) and then resets back to 0
 
 
-C) CTC Mode 
+### C) CTC Mode 
 This is that I like the best for delays (using the timer without any physical pins) and buzzers. It works by counting up until it hits the compare register for pin A (OCRxA) then reseting back to 0
 Commonly you will either toggle the physical pin on this match or run an interupt (perhaps even both)
 
@@ -102,7 +102,7 @@ ORC1A = 62499, this value is allowed as 62499 < 2^16  (note 2^16 = 65,536)
 The relevant code can be seen in the "init_CTC_InteruptExample()" and "ISR(TIMER1_COMPA_vect)"
 
 
-D) Fast PWM Mode
+### D) Fast PWM Mode
 
 This is that works best at adjusting the duty cycle of an output. 
 
@@ -126,12 +126,12 @@ therefore (OCR0A - 0)/(OCR0A - 0 + 255 - OCR0A) = 0.7
 
 therefore OCR0A/255 = 0.7 -> OCR0A = 256*0.7 = 178
 
-E) Phase Correct PWM Mode
+### E) Phase Correct PWM Mode
 
 Similar to Fast PWM except instead of reseting the count back to 0 when it reaches its top it will instead start counting down until it reaches 0, then it will start counting up again
 
 
 
-Part 4) Interrupts and Flags
+## Part 4) Interrupts and Flags
 
 
