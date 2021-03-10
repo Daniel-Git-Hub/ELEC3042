@@ -18,13 +18,13 @@ void serial_transmit(uint8_t DataByte)
 
 int main()
 {
-  serial_init(115200); //initalise using our desired baud rate
-  char str[] = "ELEC3042"; //the data we want to send in an array, (note that this is an array that is 9 characters long as it also has a hidden null 
+	serial_init(115200); //initalise using our desired baud rate
+	char str[] = "ELEC3042"; //the data we want to send in an array, (note that this is an array that is 9 characters long as it also has a hidden null 
 	while (1)
 	{
-    for(int i = 0; i < sizeof(str)/sizeof(str[0]); i++){  //for each character
-      serial_transmit(str[i]); //transmit
-    }
+		for(int i = 0; i < sizeof(str)/sizeof(str[0]); i++){  //for each character
+			serial_transmit(str[i]); //transmit our character (a character is 8 bits long
+		}
 		_delay_ms(2000); //a delay function defined elsewhere that waits a certain number of milliseconds
 	}
 	return 0;
