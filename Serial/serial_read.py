@@ -5,7 +5,7 @@ ser = serial.Serial('COM7') #for linux might will look like '/dev/ttyAMA0'
 ser.baudrate = 115200 #these are our settings that we defined in serial_init() on the ATMEGA chip
 ser.parity = serial.PARITY_NONE
 ser.stopbits = serial.STOPBITS_TWO
-ser.butesize = serial.EIGHTBITS
+ser.bytesize = serial.EIGHTBITS
 
 reading = 0 #used to keep track of how many messages of come in
 while True:
@@ -15,5 +15,8 @@ while True:
   #print(str(reading) + " : "  + str(char) + " : " + str(ord(char)) + " : " + str(hex(ord(char)))  + " : " + str(bin(ord(char))))
   
   #if you are using python 3
-  print(str(reading) + " : "  + str(char, 'utf-8') + " : " + str(ord(char)) + " : " + str(hex(ord(char)))  + " : " + str(bin(ord(char))))
+  try: 
+    print(str(reading) + " : "  + str(char, 'utf-8') + " : " + str(ord(char)) + " : " + str(hex(ord(char)))  + " : " + str(bin(ord(char))))
+  except:
+    print(str(reading) + " :  : " + str(ord(char)) + " : " + str(hex(ord(char)))  + " : " + str(bin(ord(char))))  
   reading += 1
